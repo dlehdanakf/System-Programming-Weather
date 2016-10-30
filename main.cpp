@@ -3,6 +3,6 @@
 using namespace std;
 
 int main(void){
-    cout << "sdaf" << endl;
+    cout << "hello" << endl;
     system ("clear");
 }
