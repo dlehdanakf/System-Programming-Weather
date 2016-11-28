@@ -6,6 +6,8 @@
 #include <unistd.h>
 #include <sstream>
 #include <string>
+#include <strings.h>
+#include <cstring>
 
 #define BLKSIZE 1024
 
