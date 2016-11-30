@@ -8,6 +8,7 @@
 #include <string>
 #include <strings.h>
 #include <cstring>
+#include <time.h>
 
 #define BLKSIZE 1024
 
@@ -23,15 +24,35 @@ void printCurrentStatus(char* name_bf, int name_length, char* hangang_bf, int ha
     char after_hangang[] = {"3 ºC | 실외온도 : "};
     char after_weather[] = {" ºC"};
 
+
     while(((state = write(STDOUT_FILENO, name_bf, name_length - 1)) == -1 ) && (errno == EINTR)) ;
     while(((state = write(STDOUT_FILENO, after_name, sizeof(after_name) - 1)) == -1 ) && (errno == EINTR)) ;
     while(((state = write(STDOUT_FILENO, hangang_bf, hangang_length)) == -1 ) && (errno == EINTR)) ;
     while(((state = write(STDOUT_FILENO, after_hangang, sizeof(after_hangang) - 1)) == -1 ) && (errno == EINTR)) ;
     while(((state = write(STDOUT_FILENO, weather_bf, weather_length)) == -1 ) && (errno == EINTR)) ;
     while(((state = write(STDOUT_FILENO, after_weather, sizeof(after_weather) - 1)) == -1 ) && (errno == EINTR)) ;
+
+
 }
+/*
+int ClockMain(){
+    time_t curtime;
+    time(&curtime);
+    cout<<ctime(&curtime);
+    return 0;
+}
+ */
+void Clock(){
+    char* currentTime;
+    time_t curtime;
+    time(&curtime);
+    currentTime = ctime(&curtime);
+    char before_currentTime[]={"CURRENT_TIME : "};
+    int state2;
 
-
+    while(((state2 = write(STDOUT_FILENO, before_currentTime,sizeof(before_currentTime) - 1))== -1) &&(errno==EINTR));
+    while(((state2 = write(STDOUT_FILENO, currentTime,20)) == -1 )&&(errno == EINTR ));
+}
 string hangangFetch(){
     int sock;
     struct sockaddr_in client;
@@ -90,6 +111,7 @@ void hangangMain(){
 int main(void){
     int name_read;
     char name_bf[BLKSIZE];
+    time_t *curtime2;
 
     getUserNameFromKeyboard(name_bf, name_read);
 
@@ -113,8 +135,11 @@ int main(void){
         while(1){
             cout << "\r" << flush;
             printCurrentStatus(name_bf, name_read, h, 2, w, 2);
+            cout<<endl;
+            Clock();
             cout << flush;
             sleep( 10 );
         }
     }
+
 }
