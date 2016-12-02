@@ -9,6 +9,8 @@
 #include <strings.h>
 #include <cstring>
 #include <time.h>
+#include<fcntl.h>
+#include<sys/stat.h>
 
 #define BLKSIZE 1024
 
@@ -34,15 +36,19 @@ void printCurrentStatus(char* name_bf, int name_length, char* hangang_bf, int ha
 
 
 }
-/*
-int ClockMain(){
-    time_t curtime;
-    time(&curtime);
-    cout<<ctime(&curtime);
-    return 0;
+
+
+void morningAlarm(char* hangang_bf, int hangang_length, char* weather_bf, int weather_length) {           //alarm message everyday. at 7am, record
+    struct tm today;
+    time_t tt;
+    time(&tt);
+    today = *localtime(&tt);
+
+    if (today.tm_hour == 4 && today.tm_min==06) {
+        cout << "good morning!" << endl;
+    }
 }
- */
-void Clock(){
+void Clock(){               //show current time
     char* currentTime;
     time_t curtime;
     time(&curtime);
@@ -137,6 +143,8 @@ int main(void){
             printCurrentStatus(name_bf, name_read, h, 2, w, 2);
             cout<<endl;
             Clock();
+            cout<<endl;
+            morningAlarm(h,2,w,2);
             cout << flush;
             sleep( 10 );
         }
