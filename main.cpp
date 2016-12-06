@@ -11,6 +11,7 @@
 #include <time.h>
 #include<fcntl.h>
 #include<sys/stat.h>
+#include<curl/curl.h>
 
 #define BLKSIZE 1024
 
@@ -124,6 +125,7 @@ int main(void){
     char h[] = {"23"};
     char w[] = {"17"};
 
+    system("curl wttr.in/Seoul");
 
     pid_t hangang_fork = fork();
     if(hangang_fork == -1){
