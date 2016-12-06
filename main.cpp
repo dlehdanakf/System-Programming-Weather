@@ -24,7 +24,7 @@ void printCurrentStatus(char* name_bf, int name_length, char* hangang_bf, int ha
 
     int state;
     char after_name[] = {"님 안녕하세요. 한강온도 : "};
-    char after_hangang[] = {"3 ºC | 실외온도 : "};
+    char after_hangang[] = {" ºC | 실외온도 : "};
     char after_weather[] = {" ºC"};
 
 
@@ -136,7 +136,7 @@ int main(void){
         //  child
         while(1){
             hangangMain();
-            sleep( 1 );
+            sleep( 5 );
         }
     } else {
         //  parent
@@ -151,5 +151,4 @@ int main(void){
             sleep( 10 );
         }
     }
-
 }
